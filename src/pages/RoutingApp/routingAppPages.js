@@ -1,21 +1,26 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Business from '../components/Menu/Business/Business';
-import CreateOrder from '../components/Menu/CreateOrder/CreateOrder';
-import SaveOrder from '../components/Menu/SaveOrders/SaveOrders';
-import CalibrationTests from './calibrationTests';
-import CreateUser from './createUser';
-import Home from './home';
-import Login from './shiftLogIn';
-import Menu from './menu';
-import NOTFOUND from './notFound';
-import StaffPage from './staff';
+import Business from '../../components/Menu/Business/Business';
+import CreateOrder from '../../components/Menu/CreateOrder/CreateOrder';
+import SaveOrder from '../../components/Menu/SaveOrders/SaveOrders';
+import CalibrationTests from '../calibrationTests';
+import CreateUser from '../createUser';
+import Home from '../home';
+import Login from '../shiftLogIn';
+import Menu from '../menu';
+import NOTFOUND from '../notFound';
+import StaffPage from '../staff';
+import DashBoard from '../../Dashboard/dashBoard';
 const AllRoutes = () => {
   return (
     <Routes>
       {' '}
-      {/*Route of cart page.*/}
-      <Route id="cart" path="/Cart" element={<CalibrationTests />} />
+      {/*Route of calibrationTests page.*/}
+      <Route
+        id="calibrationTests"
+        path="/CalibrationTests"
+        element={<CalibrationTests />}
+      />
       {/*Route of createUser page.*/}
       <Route
         id="createUser"
@@ -29,7 +34,15 @@ const AllRoutes = () => {
       {/*Route of menu page.*/}
       <Route id="menu" path="/Menu" element={<Menu />}></Route>
       {/*Route of userPage.*/}
-      <Route id="userPage" path="/UserPage" element={<StaffPage />}></Route>
+      <Route id="staffPage" path="/StaffPage" element={<StaffPage />}></Route>
+      {/*Route of userPage.*/}
+      <Route id="dashboard" path="/Dashboard" element={<DashBoard />}></Route>
+      {/*Route of userPage.*/}
+      <Route
+        id="createUser"
+        path="/CreateUser"
+        element={<CreateUser />}
+      ></Route>
       {/*Route of menu pages.
     _______________________________________________________________________________
     */}

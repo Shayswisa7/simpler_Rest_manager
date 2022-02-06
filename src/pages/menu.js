@@ -5,9 +5,8 @@ import Counter from '../components/Features/counter';
 import Business from '../components/Menu/Business/Business';
 import CreateOrder from '../components/Menu/CreateOrder/CreateOrder';
 import SaveOrder from '../components/Menu/SaveOrders/SaveOrders';
-import AllRoutes from './routingAppPages';
-
-import { AllImports } from '../imports/imports';
+import AllRoutes from '../pages/RoutingApp/routingAppPages';
+import AllProducts from '../components/Menu/AllProducts/AllProducts';
 
 const Menu = () => {
   const itemsInOrder = useSelector((state) => state.itemsInOrder);
@@ -28,30 +27,62 @@ const Menu = () => {
   }, [typeMenu]);
   return (
     <React.Fragment>
-      <h3>Menu</h3>
-      <div>
-        <button
-          className="btn-primary"
-          onClick={() => setTypeMenu('createOrder')}
+      <div className="container" style={{ width: '100%', height: '100%' }}>
+        <h3>Menu</h3>
+        <div
+          className="btn-group"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%',
+            height: '100%',
+          }}
         >
-          צור מנה
-        </button>
-        <button
-          className="btn-primary"
-          onClick={() => setTypeMenu('saveOrder')}
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => setTypeMenu('allProducts')}
+          >
+            כל התפריט
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => setTypeMenu('createOrder')}
+          >
+            צור מנה
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => setTypeMenu('saveOrder')}
+          >
+            המנות שלך
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => setTypeMenu('dealOrder')}
+          >
+            עסקיות
+          </button>
+        </div>
+        <br />
+        <div
+          className="div"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            flexFlow: 'column',
+            msAlignSelf: 'center',
+          }}
         >
-          המנות שלך
-        </button>
-        <button
-          className="btn-primary"
-          onClick={() => setTypeMenu('dealOrder')}
-        >
-          עסקיות
-        </button>
+          {typeMenu === 'dealOrder' ? <Business /> : ''}
+          {typeMenu === 'saveOrder' ? <SaveOrder /> : ''}
+          {typeMenu === 'createOrder' ? <CreateOrder /> : ''}
+          {typeMenu === 'allProducts' ? <AllProducts /> : ''}
+        </div>
       </div>
-      {typeMenu === 'dealOrder' ? <Business /> : ''}
-      {typeMenu === 'saveOrder' ? <SaveOrder /> : ''}
-      {typeMenu === 'createOrder' ? <CreateOrder /> : ''}
     </React.Fragment>
   );
 };

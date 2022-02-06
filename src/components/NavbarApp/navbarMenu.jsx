@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import '../../pages/routingAppPages';
+import '../../pages/RoutingApp/routingAppPages';
 
 import * as Icon from 'react-bootstrap-icons';
 

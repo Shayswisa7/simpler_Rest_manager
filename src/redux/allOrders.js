@@ -10,7 +10,8 @@ export const postAllOrders = createAsyncThunk(
     return item.data.obj;
   }
 );
-
+let type;
+let name;
 export const allOrdersSlice = createSlice({
   name: 'onlineOrdersReducer',
   initialState: {
@@ -21,8 +22,15 @@ export const allOrdersSlice = createSlice({
     setObj: (state, action) => {
       state.obj = action.payload;
     },
-    add: (state) => {
-      console.log();
+    increment: (state, { payload }) => {
+      type = payload['type'];
+      name = payload['name'];
+      state.obj[type][name].pos++;
+    },
+    decrement: (state, { payload }) => {
+      type = payload['type'];
+      name = payload['name'];
+      if (state.obj[type][name].pos > 0) state.obj[type][name].pos--;
     },
   },
   extraReducers: {
@@ -39,5 +47,5 @@ export const allOrdersSlice = createSlice({
   },
 });
 
-export const { add, setObj } = allOrdersSlice.actions;
+export const { setObj, increment, decrement } = allOrdersSlice.actions;
 export default allOrdersSlice.reducer;
