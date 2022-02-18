@@ -16,7 +16,7 @@ const EditPrices = () => {
   console.log(allFormats);
   return (
     <React.Fragment>
-      <button onClick={() => setTypeFormat('AllProductOBJ')}>
+      <button onClick={() => setTypeFormat('AllProductsOBJ')}>
         AllProductOBJ
       </button>
       <button onClick={() => setTypeFormat('OrdersOBJ')}>OrdersOBJ</button>

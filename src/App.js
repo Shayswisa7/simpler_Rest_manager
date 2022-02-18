@@ -2,29 +2,41 @@ import './CSS/App.css';
 import AllRoutes from './pages/RoutingApp/routingAppPages';
 import NavBarApp from './components/NavbarApp/navbarApp';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchItemsInOrders as fetchItemsInOrdersThunk } from './redux/itemsInOrder';
-import { postEmployeeUserOBJ as postEmployeeUserOBJThunk } from './redux/employeeUser';
-import { postFullOrder as postFullOrderThunk } from './redux/fullOrderClient';
-import { postAllOrders as postAllOrdersThunk } from './redux/allOrders';
+import { postItemsInOrders as postItemsInOrdersThunk } from './redux/ItemsReducers/itemsInOrder';
+import { postEmployeeUserOBJ as postEmployeeUserOBJThunk } from './redux/UsersReducers/employeeUser';
+import { postAllOrders as postAllOrdersThunk } from './redux/HandleOrdersReducers/allOrders';
 import { useEffect, useState } from 'react';
+import { postAllProducts as postAllProductsThunk } from './redux/ItemsReducers/allProducts';
 import axios from 'axios';
 import NavbarMenu from './components/NavbarApp/navbarMenu';
 import DashBoard from './Dashboard/dashBoard';
-import { postAllProducts as postAllProductsThunk } from './redux/allProducts';
+import { postFullOrderRest as postFullOrderRestThunk } from './redux/HandleOrdersReducers/fullOrderRest';
+import { listLocalS } from './redux/UsersReducers/staffList';
+import { postBusiness as postBusinessThunk } from './redux/ItemsReducers/business';
+import lettuce from './Images/lettuce.png';
 function App() {
   const employeeUser = useSelector((state) => state.employeeUser);
-  const fullOrder = useSelector((state) => state.fullOrder);
+  const fullOrders = useSelector((state) => state.fullOrders);
   const itemsInOrder = useSelector((state) => state.itemsInOrder);
   const allOrders = useSelector((state) => state.allOrders);
   const allProducts = useSelector((state) => state.allProducts);
+  const business = useSelector((state) => state.business);
   const dispatch = useDispatch();
-  console.log(allProducts);
   useEffect(() => {
-    dispatch(fetchItemsInOrdersThunk());
+    if (window.localStorage.getItem('staffList')) {
+      dispatch(
+        listLocalS(JSON.parse(window.localStorage.getItem('staffList')))
+      );
+      console.log(JSON.parse(window.localStorage.getItem('staffList')));
+    }
+  }, []);
+  useEffect(() => {
+    dispatch(postItemsInOrdersThunk());
     dispatch(postEmployeeUserOBJThunk());
-    dispatch(postFullOrderThunk());
+    dispatch(postFullOrderRestThunk());
     dispatch(postAllOrdersThunk());
     dispatch(postAllProductsThunk());
+    dispatch(postBusinessThunk());
     {
       //Local Storage
       /*{
@@ -52,9 +64,19 @@ function App() {
           setObjItemsInOrderAction(Object.assign(localItemsInOrder.obj))
         );
       }
-    };*/
+    };
+    
+    
+    useEffect(() => {
+    if (window.localStorage.getItem('staffList')) {
+      dispatch(
+        listLocalS(JSON.parse(window.localStorage.getItem('staffList')))
+      );
+      console.log(JSON.parse(window.localStorage.getItem('staffList')));
     }
-    return () => {};
+  }, []);
+    */
+    }
   }, [dispatch]);
   return (
     <div className="Home">

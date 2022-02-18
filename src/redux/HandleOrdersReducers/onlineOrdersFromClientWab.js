@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const postOnlineOrders = createAsyncThunk(
-  'onlineOrdersReducer/postAllOrders',
+export const getOnlineOrdersFromClientWab = createAsyncThunk(
+  'onlineOrdersFromClientWabReducer/getOnlineOrdersFromClientWab',
   async () => {
     /*  const item = await axios.post('http://localhost:3001/RestDataFormats_Obj', {
       type: 'AllOrders',
@@ -11,8 +11,8 @@ export const postOnlineOrders = createAsyncThunk(
   }
 );
 
-export const onlineOrdersSlice = createSlice({
-  name: 'onlineOrdersReducer',
+export const onlineOrdersFromClientWabSlice = createSlice({
+  name: 'onlineOrdersFromClientWabReducer',
   initialState: {
     obj: [],
     status: null,
@@ -35,17 +35,17 @@ export const onlineOrdersSlice = createSlice({
     },
   },
   extraReducers: {
-    [postAllOrders.pending]: (state, action) => {
+    [getOnlineOrdersFromClientWab.pending]: (state, action) => {
       state.status = 'loading';
     },
-    [postAllOrders.fulfilled]: (state, action) => {
+    [getOnlineOrdersFromClientWab.fulfilled]: (state, action) => {
       state.obj = action.payload;
     },
-    [postAllOrders.rejected]: (state, action) => {
+    [getOnlineOrdersFromClientWab.rejected]: (state, action) => {
       state.status = 'failed';
     },
   },
 });
 
-export const { add, setObj } = onlineOrdersSlice.actions;
-export default onlineOrdersSlice.reducer;
+export const { add, setObj } = onlineOrdersFromClientWabSlice.actions;
+export default onlineOrdersFromClientWabSlice.reducer;

@@ -16,3 +16,8 @@
   justify-content: center;
   font-size: 3rem;
 }
+.s {
+  background-image: url('../../public/Images/lettuce.png');
+  width: 20px;
+  height: 125px;
+}

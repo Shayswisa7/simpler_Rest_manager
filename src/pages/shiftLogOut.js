@@ -4,16 +4,22 @@ import { setValuesByKey as setValuesByKeyAction } from '../redux/UsersReducers/e
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { clearState as clearStateAction } from '../redux/UsersReducers/userConnent';
+import {
+  clearState as clearStateAction,
+  logOut as logOutAction,
+} from '../redux/UsersReducers/userConnent';
+import { postUserLogOut as postUserLogOutThunk } from '../redux/UsersReducers/userConnent';
 import { userConnection as userConnectionThunk } from '../redux/UsersReducers/userConnent';
 //import useHistory from 'history';
 import toast from 'react-hot-toast';
-import { add as addAction, listLocalS } from '../redux/UsersReducers/staffList';
-const Login = () => {
+import { remove as removeAction } from '../redux/UsersReducers/staffList';
+const LogOut = () => {
   const dispatch = useDispatch();
   const employeeUser = useSelector((state) => state.employeeUser);
   const empConnect = useSelector((state) => state.userConnect);
   const staffList = useSelector((state) => state.staffList);
+
+  const [postData, setPostData] = useState(false);
   const {
     register,
     handleSubmit,
@@ -23,19 +29,40 @@ const Login = () => {
     dispatch(userConnectionThunk(data));
   };
   useEffect(() => {
-    if (empConnect.status === 'success' && empConnect.obj.name !== '') {
-      dispatch(addAction(Object.assign(empConnect.obj)));
+    if (postData) {
+      console.log(empConnect.obj.workTimes);
+      dispatch(
+        postUserLogOutThunk({
+          id: empConnect.obj.id,
+          workTimes: empConnect.obj.workTimes,
+        })
+      );
+      console.log(empConnect.obj.workTimes);
       dispatch(clearStateAction());
+      console.log(staffList.obj);
+      window.localStorage.setItem('staffList', staffList.obj);
+      setPostData(false);
+    }
+  }, [empConnect.status === 'success' ? empConnect.obj.workTimes.end : '']);
+  useEffect(() => {
+    if (empConnect.status === 'success') {
+      let isExist = false;
+      for (let i in staffList.obj) {
+        console.log(staffList.obj[i].id === empConnect.obj.id);
+        if (staffList.obj[i].id === empConnect.obj.id) {
+          isExist = true;
+        }
+      }
+      if (isExist) {
+        dispatch(removeAction(empConnect.obj.id));
+        dispatch(logOutAction());
+        setPostData(true);
+      } else {
+        //show toast that say user is not in shift.
+      }
     }
   }, [empConnect]);
-  /*useEffect(() => {
-    if (window.localStorage.getItem('staffList')) {
-      dispatch(
-        listLocalS(JSON.parse(window.localStorage.getItem('staffList')))
-      );
-      console.log(JSON.parse(window.localStorage.getItem('staffList')));
-    }
-  }, []);*/
+
   console.log(staffList);
   const showMessage = (x) => {
     return (
@@ -54,7 +81,7 @@ const Login = () => {
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            כניסה למשמרת
+            יציאה מהמשמרת
           </h2>
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -133,7 +160,7 @@ const Login = () => {
     </React.Fragment>
   );
 };
-export default Login;
+export default LogOut;
 const Login1 = () => {
   //const user = useSelector((state) => state.user_reducer);
   const dispatch = useDispatch();

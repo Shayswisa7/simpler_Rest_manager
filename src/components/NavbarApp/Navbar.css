@@ -3,12 +3,11 @@
   height: 80px;
   display: flex;
   justify-content: start;
-  flex-grow: 1;
   align-items: center;
 }
 
 .menu-bars {
-  margin-left: 2rem;
+  margin-right: 2rem;
   font-size: 2rem;
   background: none;
 }
@@ -17,8 +16,7 @@
   font-size: 22px;
   height: 80px;
   display: flex;
-  justify-content: end;
-  margin-right: 2rem;
+  justify-content: start;
   align-items: center;
 }
 .nav-menu {
@@ -27,15 +25,15 @@
   height: 100vh;
   z-index: 1;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   position: fixed;
   top: 0;
-  left: -100%;
+  right: -100%;
   transition: 600ms;
 }
 
 .nav-menu.active {
-  left: 0;
+  right: 0;
   transition: 350ms;
 }
 
@@ -43,7 +41,7 @@
   display: flex;
   justify-content: start;
   align-items: center;
-  padding: 8px 0px 8px 16px;
+  padding: 0px 8px 16px 8px;
   list-style: none;
   height: 60px;
 }
@@ -78,5 +76,5 @@
 }
 
 span {
-  margin-left: 16px;
+  margin-right: 16px;
 }

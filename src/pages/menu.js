@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Counter from '../components/Features/counter';
+import CounterOrder from '../components/Features/CounterOrder';
 import Business from '../components/Menu/Business/Business';
 import CreateOrder from '../components/Menu/CreateOrder/CreateOrder';
 import SaveOrder from '../components/Menu/SaveOrders/SaveOrders';
 import AllRoutes from '../pages/RoutingApp/routingAppPages';
 import AllProducts from '../components/Menu/AllProducts/AllProducts';
+import CartFullOrder from '../components/Menu/Cart/CartFullOrder';
 
 const Menu = () => {
   const itemsInOrder = useSelector((state) => state.itemsInOrder);
   const fullOrder = useSelector((state) => state.fullOrder);
+  const fullOrderRest = useSelector((state) => state.fullOrderRest);
   const allOrders = useSelector((state) => state.allOrders);
   const employeeUser = useSelector((state) => state.employeeUser);
   const dispatch = useDispatch();
-
   const [typeMenu, setTypeMenu] = useState(() => {
     if (!window.localStorage.getItem('menuSwitch')) {
       return 'dealOrder';
@@ -41,6 +42,17 @@ const Menu = () => {
           <button
             type="button"
             className="btn btn-primary"
+            onClick={() => setTypeMenu('cartFullOrder')}
+          >
+            חשבון | מנות(
+            {fullOrderRest.status === 'success'
+              ? fullOrderRest.obj.orders.length
+              : 0}
+            )
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
             onClick={() => setTypeMenu('allProducts')}
           >
             כל התפריט
@@ -57,7 +69,7 @@ const Menu = () => {
             className="btn btn-primary"
             onClick={() => setTypeMenu('saveOrder')}
           >
-            המנות שלך
+            מנות שמורות
           </button>
           <button
             type="button"
@@ -81,6 +93,7 @@ const Menu = () => {
           {typeMenu === 'saveOrder' ? <SaveOrder /> : ''}
           {typeMenu === 'createOrder' ? <CreateOrder /> : ''}
           {typeMenu === 'allProducts' ? <AllProducts /> : ''}
+          {typeMenu === 'cartFullOrder' ? <CartFullOrder /> : ''}
         </div>
       </div>
     </React.Fragment>

@@ -2,8 +2,8 @@ import React from 'react';
 import * as Icon from 'react-bootstrap-icons';
 export const NavItems = [
   {
-    title: 'הזמנות בהמתנה',
-    path: '/CalibrationTests',
+    title: 'בית',
+    path: '/',
     icon: <Icon.HouseFill />,
     cName: 'nav-text',
   },
@@ -14,8 +14,8 @@ export const NavItems = [
     cName: 'nav-text',
   },
   {
-    title: 'בית',
-    path: '/',
+    title: 'הזמנות בהמתנה',
+    path: '/CalibrationTests',
     icon: <Icon.HouseFill />,
     cName: 'nav-text',
   },
@@ -53,7 +53,7 @@ export const NavItems = [
   },
   {
     title: 'צא',
-    path: '/Login',
+    path: '/Logout',
     icon: <Icon.HouseFill />,
     cName: 'nav-text',
   },

@@ -38,7 +38,7 @@ const EditRestDataFormats = () => {
   };
   return (
     <React.Fragment>
-      <button onClick={() => setTypeFormat('AllProductOBJ')}>
+      <button onClick={() => setTypeFormat('AllProductsOBJ')}>
         AllProductOBJ
       </button>
       <br />

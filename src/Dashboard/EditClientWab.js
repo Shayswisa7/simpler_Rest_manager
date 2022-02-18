@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Counter from '../components/Features/counter';
+import CounterOrder from '../components/Features/CounterOrder';
 import Business from '../components/Menu/Business/Business';
 import CreateOrder from '../components/Menu/CreateOrder/CreateOrder';
 import SaveOrder from '../components/Menu/SaveOrders/SaveOrders';
 import AllRoutes from '../pages/RoutingApp/routingAppPages';
-
-import { AllImports } from '../imports/imports';
 
 const EditClientWab = () => {
   const itemsInOrder = useSelector((state) => state.itemsInOrder);

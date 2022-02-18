@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   postEmployeeUserOBJ,
   setValuesByKey as setValuesByKeyAction,
-} from '../../redux/employeeUser';
+} from '../../redux/UsersReducers/employeeUser';
 import * as Icon from 'react-bootstrap-icons';
 import './Navbar.css';
 import { NavItems } from './SideBarData';
@@ -27,12 +27,11 @@ const NavbarApp = () => {
     <React.Fragment>
       <IconContext.Provider value={{ color: '#060b26' }}>
         <div className="row" id="navbar">
-          <div className="col">
+          <div className="col" id="logoBar">
             <NavLink to="#" className="menu-bars">
               <Icon.List onClick={showSidebar}></Icon.List>
             </NavLink>
-          </div>
-          <div className="col-8" id="logoBar">
+
             {NavItems.map((item, index) => {
               if (index < 3)
                 return (
@@ -40,8 +39,8 @@ const NavbarApp = () => {
                     <div className="col" onClick={() => setSidebar(false)}>
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <NavLink to={item.path}>
-                        {item.title}
                         {item.icon}
+                        {item.title}
                       </NavLink>
                       &nbsp;&nbsp;
                     </div>
