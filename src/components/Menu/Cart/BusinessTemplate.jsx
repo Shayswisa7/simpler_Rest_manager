@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import BusinessName from '../../Features/Alerts/OrdersAlerts/BusinessName';
-
+import { allImages } from '../../../Images/importImags';
 const BusinessTemplate = ({ product }) => {
   const dispatch = useDispatch();
   const [ditails, setDitails] = useState('');
+  const [drink, setDrink] = useState('');
   const [meat, setMeat] = useState('');
+  const [extras, setExtras] = useState('');
   const getMeat = () => {
     let st = '';
     console.log(product.obj);
@@ -14,8 +16,22 @@ const BusinessTemplate = ({ product }) => {
         st = i;
       }
     }
+    let st1 = '';
+    for (let i in product.obj.drink) {
+      if (product.obj.drink[i].pos > 0) {
+        st1 = i;
+      }
+    }
+    let st2 = '';
+    for (let i in product.obj.extras) {
+      if (product.obj.extras[i].pos > 0) {
+        st2 = i;
+      }
+    }
     console.log(st);
+    setDrink(st1);
     setMeat(st);
+    setExtras(st2);
   };
   const getDitails = () => {
     let st = '';
@@ -28,9 +44,7 @@ const BusinessTemplate = ({ product }) => {
     }
     setDitails(st);
   };
-  const handleAdding = () => {
-    return <BusinessName />;
-  };
+
   useEffect(() => {
     getMeat();
     getDitails();
@@ -43,10 +57,46 @@ const BusinessTemplate = ({ product }) => {
             <div className="row" id="rowOrder">
               {/*_______________________________________________ */}
               <div className="col" id="orderImage">
-                <div className="row">
-                  <div>X</div>
-                  <div>X</div>
-                  <div>X</div>
+                <div
+                  className="row"
+                  style={{
+                    backgroundColor: 'rgb(255, 196, 69)',
+                    border: 'solid rgb(255, 196, 69) 1px',
+                    borderRadius: '4px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'start',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  {allImages[drink] ? (
+                    <img
+                      src={allImages[drink]}
+                      style={{ height: 'auto', width: '150px', height: '80px' }}
+                    ></img>
+                  ) : (
+                    ''
+                  )}
+                  {allImages[extras] ? (
+                    <img
+                      src={allImages[extras]}
+                      style={{
+                        height: 'auto',
+                        width: '125px',
+                        height: '80px',
+                      }}
+                    ></img>
+                  ) : (
+                    ''
+                  )}
+                  {allImages[meat] ? (
+                    <img
+                      src={allImages[meat]}
+                      style={{ height: 'auto', width: '125px', height: '80px' }}
+                    ></img>
+                  ) : (
+                    ''
+                  )}
                 </div>
               </div>
               {/*_______________________________________________ */}

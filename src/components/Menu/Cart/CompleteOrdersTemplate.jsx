@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { removeProducts as removeProductsAction } from '../../../redux/HandleOrdersReducers/fullOrderRest';
 import './OrderTemplate.css';
+import { allImages } from '../../../Images/importImags';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const ComplexOrdersTemplate = ({ props, posArray }) => {
+const CompleteOrdersTemplate = ({ props, posArray }) => {
   const [ditails, setDitails] = useState('');
+  const [drink, setDrink] = useState('');
   const [meat, setMeat] = useState('');
+  const [extras, setExtras] = useState('');
   const dispatch = useDispatch();
   const notifyIsSuccess = () => toast('hellow!');
 
@@ -19,8 +22,22 @@ const ComplexOrdersTemplate = ({ props, posArray }) => {
         st = i;
       }
     }
+    let st1 = '';
+    for (let i in props.drink) {
+      if (props.drink[i].pos > 0) {
+        st1 = i;
+      }
+    }
+    let st2 = '';
+    for (let i in props.extras) {
+      if (props.extras[i].pos > 0) {
+        st2 = i;
+      }
+    }
     console.log(st);
+    setDrink(st1);
     setMeat(st);
+    setExtras(st2);
   };
   const getDitails = () => {
     let st = '';
@@ -50,9 +67,18 @@ const ComplexOrdersTemplate = ({ props, posArray }) => {
               {/*_______________________________________________ */}
               <div className="col" id="orderImage">
                 <div className="row">
-                  <div>X</div>
-                  <div>X</div>
-                  <div>X</div>
+                  <img
+                    src={allImages[drink] ? allImages[drink] : ''}
+                    style={{ height: 'auto', width: '80px' }}
+                  ></img>
+                  <img
+                    src={allImages[meat] ? allImages[meat] : ''}
+                    style={{ height: 'auto', width: '80px' }}
+                  ></img>
+                  <img
+                    src={allImages[extras] ? allImages[extras] : ''}
+                    style={{ height: 'auto', width: '80px' }}
+                  ></img>
                 </div>
               </div>
               {/*_______________________________________________ */}
@@ -60,23 +86,28 @@ const ComplexOrdersTemplate = ({ props, posArray }) => {
                 <div className="col">
                   <div className="row">
                     <div className="col" id="orderDitails">
-                      שם:{props.name}
+                      <h3>שם:{props.name}</h3>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col" id="orderDitails">
-                      שם מנה:{meat}
+                      <h3>שם מנה:{meat}</h3>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col" id="orderDitails">
-                      מרכיבים:{ditails}...
+                      <h3>מרכיבים:{ditails}...</h3>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="col" id="orderDitails-edit">
-                <button className="btn btn-primary">ערוך</button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => console.log(props)}
+                >
+                  הצג
+                </button>
                 <button
                   className="btn btn-danger"
                   onClick={() => handleDelete()}
@@ -95,4 +126,4 @@ const ComplexOrdersTemplate = ({ props, posArray }) => {
   );
 };
 
-export default ComplexOrdersTemplate;
+export default CompleteOrdersTemplate;

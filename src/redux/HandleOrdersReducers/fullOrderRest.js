@@ -32,8 +32,8 @@ export const fullOrderRestSlice = createSlice({
       for (let i in order) {
         if (i === 'business') {
           if (order[i].length !== 0)
-            for (let i in order[i]) {
-              addOrderRest(order[i].obj);
+            for (let j in order[i]) {
+              addOrderRest(order[i][j].obj);
             }
         } else {
           for (let j in order[i]) {
@@ -44,6 +44,7 @@ export const fullOrderRestSlice = createSlice({
           }
         }
       }
+
       prices.sumPrice = sum;
       state.obj.price.push(prices);
       state.obj.orders.push(order);
@@ -73,6 +74,10 @@ export const fullOrderRestSlice = createSlice({
             }
           }
       }
+      state.obj.cash.push({
+        name: order['name'],
+        cash: order['cash'],
+      });
       prices.remarks = order['remarks'];
       prices.cash = order['cash'];
       prices.sumPrice = sum;

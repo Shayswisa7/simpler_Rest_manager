@@ -58,7 +58,7 @@ const LogOut = () => {
         dispatch(logOutAction());
         setPostData(true);
       } else {
-        //show toast that say user is not in shift.
+        alert('user not in staff');
       }
     }
   }, [empConnect]);

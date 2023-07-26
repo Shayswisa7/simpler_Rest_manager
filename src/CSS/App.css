@@ -7,17 +7,12 @@
   font-family: 'Lato', sans-serif;
 }
 
-.home,
-.reports,
-.products {
-  display: flex;
-  height: 90vh;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
+.Home {
 }
-.s {
-  background-image: url('../../public/Images/lettuce.png');
-  width: 20px;
-  height: 125px;
+.navbar {
+  display: flex;
+  justify-content: center;
+}
+.dispaly {
+  width: 9px;
 }

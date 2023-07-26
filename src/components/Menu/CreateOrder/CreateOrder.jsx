@@ -1,21 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-
 import CounterOrder from '../../Features/CounterOrder';
-import { setValuesByKey } from '../../../redux/UsersReducers/employeeUser';
 import { postItemsInOrders as postItemsInOrdersThunk } from '../../../redux/ItemsReducers/itemsInOrder';
 import { setValues as setValuesAction } from '../../../redux/ItemsReducers/itemsInOrder';
-import { NavLink } from 'react-router-dom';
 import {
   addDitailsUserRest as addDitailsUserRestAction,
   addOrderRest as addOrderRestAction,
 } from '../../../redux/HandleOrdersReducers/fullOrderRest';
-import lettuce from '../../../Images/lettuce.png';
+import { allImages } from '../../../Images/importImags';
 import { useState } from 'react';
-import { Link } from 'react-bootstrap-icons';
 import { useEffect } from 'react';
-import { add } from '../../../redux/UsersReducers/staffList';
 const CreateOrder = () => {
   //Selector Hook
   const itemsInOrder = useSelector((state) => state.itemsInOrder); //useSelector((state) => state.itemsInOrder);
@@ -78,6 +73,8 @@ const CreateOrder = () => {
     <React.Fragment>
       <div className="container">
         <form id="hook-form" onSubmit={handleSubmit(onSubmit)}>
+          <label htmlFor="nameOrder"> שם המנה</label>
+          &nbsp; &nbsp;
           <input
             {...register('nameOrder', {
               required: 'חייב שם להזמנה',
@@ -89,7 +86,7 @@ const CreateOrder = () => {
             type="input"
             id="nameOrder"
           ></input>
-          <label htmlFor="nameOrder">שם המנה</label>
+          &nbsp; &nbsp; &nbsp;
           <input
             {...register('cash', {
               onChange: () => setCash(!cash),
@@ -99,6 +96,7 @@ const CreateOrder = () => {
             id="cash"
           ></input>
           <label htmlFor="cash">תשלום באשראי</label>
+          &nbsp; &nbsp;
           <input
             {...register('save', {
               onChange: () => setSave(!save),
@@ -133,7 +131,7 @@ const CreateOrder = () => {
                           <tr key={item1 + '1'}>
                             <td>
                               <img
-                                src={lettuce}
+                                src={allImages[item1]}
                                 style={{ height: 'auto', width: '80px' }}
                               ></img>
                             </td>
@@ -174,10 +172,15 @@ const CreateOrder = () => {
               width: '120px',
               height: '100px',
               textAlign: 'right',
+              borderRadius: '6px',
             }}
           ></input>
           <label htmlFor="remarks">:הערות</label>
-          <input type="submit" onClick={() => setSubmit(true)}></input>
+          <input
+            className="btn btn-primary"
+            type="submit"
+            onClick={() => setSubmit(true)}
+          ></input>
         </form>
       </div>
     </React.Fragment>

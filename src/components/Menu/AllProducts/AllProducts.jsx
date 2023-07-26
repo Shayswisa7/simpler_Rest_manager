@@ -8,6 +8,7 @@ import {
   removeProducts as removeProductsAction,
 } from '../../../redux/HandleOrdersReducers/fullOrderRest';
 import CounterProduct from '../../Features/CounterProduct';
+import { allImages } from '../../../Images/importImags';
 
 const AllProducts = () => {
   const itemsInOrder = useSelector((state) => state.itemsInOrder);
@@ -100,6 +101,7 @@ const AllProducts = () => {
                 </thead>
                 <tbody>
                   <tr className="bg-warning">
+                    <th>תמונה</th>
                     <th>סוג</th>
                     <th>קטן</th>
                     <th>גדול</th>
@@ -109,6 +111,16 @@ const AllProducts = () => {
                   {Object.keys(allProducts.obj[item]).map((type, index) => {
                     return (
                       <tr key={index + 'tr1'}>
+                        <td>
+                          <img
+                            src={allImages[type]}
+                            style={{
+                              height: 'auto',
+                              width: '150px',
+                              height: '80px',
+                            }}
+                          ></img>
+                        </td>
                         <td>{type}</td>
                         {allProducts.obj[item][type].prices.map((item1, i) => {
                           return (

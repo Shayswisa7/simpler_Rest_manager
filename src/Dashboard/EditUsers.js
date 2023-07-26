@@ -8,6 +8,8 @@ import SaveOrder from '../components/Menu/SaveOrders/SaveOrders';
 import AllRoutes from '../pages/RoutingApp/routingAppPages';
 
 import CreateUser from '../pages/createUser';
+import Login from '../pages/shiftLogIn';
+import LogOut from '../pages/shiftLogOut';
 
 const EditUsers = () => {
   const itemsInOrder = useSelector((state) => state.itemsInOrder);
@@ -57,9 +59,9 @@ const EditUsers = () => {
           </button>
         </div>
         <br />
-        {typeEdit === 'dealOrder' ? <Business /> : ''}
+        {typeEdit === 'dealOrder' ? <Login /> : ''}
         {typeEdit === 'saveOrder' ? <CreateUser /> : ''}
-        {typeEdit === 'createOrder' ? <CreateOrder /> : ''}
+        {typeEdit === 'createOrder' ? <LogOut /> : ''}
       </div>
     </React.Fragment>
   );

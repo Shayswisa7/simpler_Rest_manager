@@ -5,15 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { postItemsInOrders as postItemsInOrdersThunk } from './redux/ItemsReducers/itemsInOrder';
 import { postEmployeeUserOBJ as postEmployeeUserOBJThunk } from './redux/UsersReducers/employeeUser';
 import { postAllOrders as postAllOrdersThunk } from './redux/HandleOrdersReducers/allOrders';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { postAllProducts as postAllProductsThunk } from './redux/ItemsReducers/allProducts';
-import axios from 'axios';
-import NavbarMenu from './components/NavbarApp/navbarMenu';
-import DashBoard from './Dashboard/dashBoard';
+
 import { postFullOrderRest as postFullOrderRestThunk } from './redux/HandleOrdersReducers/fullOrderRest';
 import { listLocalS } from './redux/UsersReducers/staffList';
 import { postBusiness as postBusinessThunk } from './redux/ItemsReducers/business';
-import lettuce from './Images/lettuce.png';
 function App() {
   const employeeUser = useSelector((state) => state.employeeUser);
   const fullOrders = useSelector((state) => state.fullOrders);
@@ -80,8 +77,8 @@ function App() {
   }, [dispatch]);
   return (
     <div className="Home">
-      <div className="body">
-        <NavBarApp />
+      <NavBarApp />
+      <div className="navbar">
         <AllRoutes />
       </div>
     </div>

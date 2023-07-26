@@ -6,9 +6,9 @@ import EditProducts from './EditProducts';
 import EditUsers from './EditUsers';
 
 const DashBoard = () => {
-  const [edit, setEdit] = useState('עריכה');
-  const [editClietbPage] = useState('עריכת אתר לקוחות');
+  const [edit, setEdit] = useState('עריכת מוצרים');
   const [editProducts] = useState('עריכת מוצרים');
+  const [editClietbPage] = useState('עריכת אתר לקוחות');
   const [editUsers] = useState('עריכת משתמשים');
   return (
     <React.Fragment>

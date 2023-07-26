@@ -44,7 +44,7 @@ const BusinessName = ({ product }) => {
                 },
               })}
             ></input>
-            <input type="submit" />
+            <input className="btn btn-danger" type="submit" />
           </form>
         </div>
       </div>

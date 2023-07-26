@@ -11,6 +11,7 @@ export const postItemsInOrders = createAsyncThunk(
     const item = await axios.post('http://localhost:3001/RestDataFormats_Obj', {
       type: 'OrdersOBJ',
     });
+    console.log(item);
     return item.data.obj;
   }
 );
