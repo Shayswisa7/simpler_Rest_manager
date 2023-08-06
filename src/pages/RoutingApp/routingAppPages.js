@@ -11,6 +11,7 @@ import Menu from '../menu';
 import NOTFOUND from '../notFound';
 import StaffPage from '../staff';
 import DashBoard from '../../Dashboard/dashBoard';
+import LogOut from '../shiftLogOut';
 const AllRoutes = () => {
   return (
     <Routes>
@@ -31,6 +32,8 @@ const AllRoutes = () => {
       <Route id="home" path="/" element={<Home />} exact={true}></Route>
       {/*Route of login page.*/}
       <Route id="login" path="/Login" element={<Login />}></Route>
+      {/*Route of logOut page.*/}
+      <Route id="Logout" path="/Logout" element={<LogOut />}></Route>
       {/*Route of menu page.*/}
       <Route id="menu" path="/Menu" element={<Menu />}></Route>
       {/*Route of userPage.*/}

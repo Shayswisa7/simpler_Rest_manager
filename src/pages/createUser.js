@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { postEmployeeUserCreateUser as postEmployeeUserCreateUserThunk } from '../redux/employeeUser';
-import { setObj as setObjAction } from '../redux/employeeUser';
+import { postEmployeeUserCreateUser as postEmployeeUserCreateUserThunk } from '../redux/UsersReducers/employeeUser';
+import { setObj as setObjAction } from '../redux/UsersReducers/employeeUser';
 const CreateUser = () => {
   const employeeUser = useSelector((state) => state.employeeUser);
   const dispatch = useDispatch();
@@ -32,7 +32,8 @@ const CreateUser = () => {
     'אישור סיסמה',
     'שכר שעתי',
   ];
-  let s = 0;
+  let sumPass = 0;
+  let sumRol = 0;
   const showMessage = (err) => {
     return (
       <div className="col-4">
@@ -67,99 +68,134 @@ const CreateUser = () => {
       <div className="row">
         <div className="col">
           <form onSubmit={handleSubmit(onSubmit)}>
-            {itemsOfNewUserArray.map((x) =>
-              x !== 'phoneNumber' &&
-              x !== 'password' &&
-              x !== 'email' &&
-              x !== 'passwordConfirmation' &&
-              x ? (
-                <div key={x + 'row'} className="row">
-                  <div
-                    key={x + 'col'}
-                    className="col-2"
-                    style={{ height: '60px' }}
-                  >
-                    <input
-                      key={x}
-                      type="text"
-                      {...register(x, {
-                        required: 'חייב שיהיה ' + he[i],
-                        minLength: { value: 2, message: `${he[i]} קצר מידי ` },
-                        maxLength: { value: 25, message: `${he[i]} קצר מידי` },
-                      })}
-                      defaultValue={obj ? obj[x] : ''}
-                      placeholder={he[i++]}
-                      name={x}
-                      id={x}
-                    ></input>
-                  </div>
-                  {errors[x] && showMessage(errors[x].message)}
-                </div>
-              ) : x !== 'passwordConfirmation' && x !== 'password' && x ? (
-                <div key={x + 'row'} className="row">
-                  <div
-                    key={x + 'col'}
-                    className="col-2"
-                    style={{ height: '60px' }}
-                  >
-                    <input
-                      key={x}
-                      type={x}
-                      {...register(
-                        x,
-                        { required: 'חייב שיהיה ' + he[i] },
-                        {
-                          minLength: {
-                            value: 8,
-                            message: `${he[i]} קצר מידי 8`,
-                          },
-                          maxLength: {
-                            value: 30,
-                            message: `${he[i]} קצר מידי`,
-                          },
-                        }
-                      )}
-                      defaultValue={obj ? obj[x] : ''}
-                      placeholder={he[i++]}
-                      name={x}
-                      id={x}
-                    ></input>
-                  </div>
-                  {errors[x] && showMessage(errors[x].message)}
-                </div>
-              ) : s++ < 2 ? (
-                <div key={x + 'row'} className="row">
-                  <div
-                    key={x + 'col'}
-                    className="col-2"
-                    style={{ height: '60px' }}
-                  >
-                    <input
-                      key={x}
-                      type="password"
-                      {...register(x, {
-                        required: 'חייב שיהיה ' + he[i],
-                        minLength: {
-                          value: 8,
-                          message: `${he[i]} קצרה מידי הסיסמה אמורה להכיל 8-12 תווים`,
-                        },
-                        maxLength: {
-                          value: 12,
-                          message: `${he[i]} ארוכה מידי הסיסמה אמורה להכיל 8-12 תווים`,
-                        },
-                      })}
-                      defaultValue={obj ? obj[x] : ''}
-                      placeholder={he[i++]}
-                      name={x}
-                      id={x}
-                    ></input>
-                  </div>
-                  {errors[x] && showMessage(errors[x].message)}
-                </div>
-              ) : (
-                ''
-              )
-            )}
+            {employeeUser.status === 'success'
+              ? itemsOfNewUserArray.map((x) =>
+                  x !== 'phoneNumber' &&
+                  x !== 'password' &&
+                  x !== 'email' &&
+                  x !== 'passwordConfirmation' &&
+                  x !== 'rol' &&
+                  x ? (
+                    (console.log('______________', x),
+                    (
+                      <div key={x + 'row'} className="row">
+                        <div
+                          key={x + 'col'}
+                          className="col-2"
+                          style={{ height: '60px' }}
+                        >
+                          <input
+                            key={x}
+                            type="text"
+                            {...register(x, {
+                              required: 'חייב שיהיה ' + he[i],
+                              minLength: {
+                                value: 2,
+                                message: `${he[i]} קצר מידי `,
+                              },
+                              maxLength: {
+                                value: 25,
+                                message: `${he[i]} קצר מידי`,
+                              },
+                            })}
+                            defaultValue={obj ? obj[x] : ''}
+                            placeholder={he[i++]}
+                            name={x}
+                            id={x}
+                          ></input>
+                        </div>
+                        {errors[x] && showMessage(errors[x].message)}
+                      </div>
+                    ))
+                  ) : x !== 'passwordConfirmation' &&
+                    x !== 'password' &&
+                    x !== 'rol' ? (
+                    (console.log('______________', x),
+                    (
+                      <div key={x + 'row'} className="row">
+                        <div
+                          key={x + 'col'}
+                          className="col-2"
+                          style={{ height: '60px' }}
+                        >
+                          <input
+                            key={x}
+                            type={x}
+                            {...register(
+                              x,
+                              { required: 'חייב שיהיה ' + he[i] },
+                              {
+                                minLength: {
+                                  value: 8,
+                                  message: `${he[i]} קצר מידי 8`,
+                                },
+                                maxLength: {
+                                  value: 30,
+                                  message: `${he[i]} קצר מידי`,
+                                },
+                              }
+                            )}
+                            defaultValue={obj ? obj[x] : ''}
+                            placeholder={he[i++]}
+                            name={x}
+                            id={x}
+                          ></input>
+                        </div>
+                        {errors[x] && showMessage(errors[x].message)}
+                      </div>
+                    ))
+                  ) : x === 'rol' && sumRol++ < 1 && x ? (
+                    (console.log('______________', he[i++]),
+                    (
+                      <div key={x + 'row'} className="row">
+                        <div
+                          key={x + 'col'}
+                          className="col-2"
+                          style={{ height: '60px' }}
+                        >
+                          <select {...register('rol')}>
+                            <option value="menager">מנהל</option>
+                            <option value="leader">אחראי</option>
+                            <option value="worker">עובד</option>
+                          </select>
+                        </div>
+                        {errors[x] && showMessage(errors[x].message)}
+                      </div>
+                    ))
+                  ) : sumPass++ < 2 && x ? (
+                    <div key={x + 'row'} className="row">
+                      <div
+                        key={x + 'col'}
+                        className="col-2"
+                        style={{ height: '60px' }}
+                      >
+                        <input
+                          key={x}
+                          type="password"
+                          {...register(x, {
+                            required: 'חייב שיהיה ' + he[i],
+                            minLength: {
+                              value: 8,
+                              message: `${he[i]} קצרה מידי הסיסמה אמורה להכיל 8-12 תווים`,
+                            },
+                            maxLength: {
+                              value: 12,
+                              message: `${he[i]} ארוכה מידי הסיסמה אמורה להכיל 8-12 תווים`,
+                            },
+                          })}
+                          defaultValue={obj ? obj[x] : ''}
+                          placeholder={he[i++]}
+                          name={x}
+                          id={x}
+                        ></input>
+                      </div>
+                      {errors[x] && showMessage(errors[x].message)}
+                    </div>
+                  ) : (
+                    ''
+                  )
+                )
+              : ''}
 
             <input type="submit" />
           </form>

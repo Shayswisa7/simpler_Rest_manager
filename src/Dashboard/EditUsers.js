@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Counter from '../components/Features/counter';
+import CounterOrder from '../components/Features/CounterOrder';
 import Business from '../components/Menu/Business/Business';
 import CreateOrder from '../components/Menu/CreateOrder/CreateOrder';
 import SaveOrder from '../components/Menu/SaveOrders/SaveOrders';
 import AllRoutes from '../pages/RoutingApp/routingAppPages';
 
-import { AllImports } from '../imports/imports';
 import CreateUser from '../pages/createUser';
+import Login from '../pages/shiftLogIn';
+import LogOut from '../pages/shiftLogOut';
 
 const EditUsers = () => {
   const itemsInOrder = useSelector((state) => state.itemsInOrder);
@@ -58,9 +59,9 @@ const EditUsers = () => {
           </button>
         </div>
         <br />
-        {typeEdit === 'dealOrder' ? <Business /> : ''}
+        {typeEdit === 'dealOrder' ? <Login /> : ''}
         {typeEdit === 'saveOrder' ? <CreateUser /> : ''}
-        {typeEdit === 'createOrder' ? <CreateOrder /> : ''}
+        {typeEdit === 'createOrder' ? <LogOut /> : ''}
       </div>
     </React.Fragment>
   );

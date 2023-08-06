@@ -10,7 +10,6 @@ export const postAllProducts = createAsyncThunk(
           type: 'AllProductsOBJ',
         }
       );
-      console.log(item.data);
       return item.data;
     } catch (err) {
       console.log(err);
@@ -31,6 +30,30 @@ export const allProductsSlice = createSlice({
     setValues: (state, action) => {
       state.obj[action.payload['key']] = action.payload['value'];
     },
+    increment: (state, { payload }) => {
+      const pos = state.obj[payload.type][payload.name].pos;
+      if (pos < 30) {
+        state.obj[payload.type][payload.name].pos++;
+      }
+    },
+    decrement: (state, { payload }) => {
+      const pos = state.obj[payload.type][payload.name].pos;
+      if (pos > 0) {
+        state.obj[payload.type][payload.name].pos--;
+      }
+    },
+    incrementByAmount: (state, { payload }) => {
+      const pos = state.obj[payload.type][payload.name].pos;
+      if (pos + payload.amount <= 30) {
+        state.obj[payload.type][payload.name].pos += payload.amount;
+      }
+    },
+    decrementByAmount: (state, { payload }) => {
+      const pos = state.obj[payload.type][payload.name].pos;
+      if (pos - payload.amount >= 0) {
+        state.obj[payload.type][payload.name].pos -= payload.amount;
+      }
+    },
   },
   extraReducers: {
     [postAllProducts.pending]: (state, action) => {
@@ -46,5 +69,12 @@ export const allProductsSlice = createSlice({
   },
 });
 
-export const { setObj, setValues } = allProductsSlice.actions;
+export const {
+  setObj,
+  setValues,
+  increment,
+  incrementByAmount,
+  decrement,
+  decrementByAmount,
+} = allProductsSlice.actions;
 export default allProductsSlice.reducer;

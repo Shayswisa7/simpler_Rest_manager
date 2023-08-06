@@ -1,14 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { setValuesByKey as setValuesByKeyAction } from '../redux/employeeUser';
-import React, { useEffect } from 'react';
+import { setValuesByKey as setValuesByKeyAction } from '../redux/UsersReducers/employeeUser';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { clearState } from '../redux/userConnent';
-import { userConnection as userConnectionThunk } from '../redux/userConnent';
+import { clearState as clearStateAction } from '../redux/UsersReducers/userConnent';
+import { userConnection as userConnectionThunk } from '../redux/UsersReducers/userConnent';
 //import useHistory from 'history';
 import toast from 'react-hot-toast';
-import { add } from '../redux/staffList';
+import { add as addAction, listLocalS } from '../redux/UsersReducers/staffList';
 const Login = () => {
   const dispatch = useDispatch();
   const employeeUser = useSelector((state) => state.employeeUser);
@@ -23,11 +23,29 @@ const Login = () => {
     dispatch(userConnectionThunk(data));
   };
   useEffect(() => {
-    if (empConnect.status === 'success') {
-      dispatch(add(Object.assign(empConnect)));
-      dispatch(clearState());
+    let isExsit = false;
+    if (empConnect.status === 'success' && empConnect.obj.name !== '') {
+      for (let i in staffList.obj) {
+        if (empConnect.obj.id === staffList.obj[i].id) {
+          isExsit = true;
+        }
+      }
+      if (isExsit) {
+        alert('user alredy in staff!');
+      } else {
+        dispatch(addAction(Object.assign(empConnect.obj)));
+        dispatch(clearStateAction());
+      }
     }
   }, [empConnect]);
+  /*useEffect(() => {
+    if (window.localStorage.getItem('staffList')) {
+      dispatch(
+        listLocalS(JSON.parse(window.localStorage.getItem('staffList')))
+      );
+      console.log(JSON.parse(window.localStorage.getItem('staffList')));
+    }
+  }, []);*/
   console.log(staffList);
   const showMessage = (x) => {
     return (
@@ -126,82 +144,3 @@ const Login = () => {
   );
 };
 export default Login;
-const Login1 = () => {
-  //const user = useSelector((state) => state.user_reducer);
-  const dispatch = useDispatch();
-  return (
-    <React.Fragment>
-      <br />
-      <div
-        className="container"
-        style={{ border: '5px solid black', borderRadius: '12px' }}
-      >
-        <br />
-        <h4
-          style={{
-            background: 'lightBlue',
-            borderRadius: '12px',
-            height: '150px',
-            width: '100%',
-            textAlign: 'center',
-          }}
-        >
-          !!!שלום לכניסה למשמרת אנא הכנס מספר פלא/ת.ז וסיסמה, משמרת נעימה
-        </h4>
-        <div className="d-flex justify-content-center">
-          <div className="d-flex flex-column">
-            <div className="p-3" style={{ alignSelf: 'start' }}>
-              <p className="fw-bold" style={{ textAlign: 'center' }}>
-                מספר פלא/ת.ז
-              </p>
-              <input
-                className="phoneNumber"
-                type="phoneNumber"
-                style={{
-                  width: '220px',
-                  borderRadius: '12px',
-                  textAlign: 'center',
-                }}
-              />
-            </div>
-            <div className="p-3" style={{ alignSelf: 'center' }}>
-              <p className="fw-bold" style={{ textAlign: 'center' }}>
-                סיסמה
-              </p>
-              <input
-                className="password"
-                type="password"
-                style={{
-                  width: '220px',
-                  borderRadius: '12px',
-                  textAlign: 'center',
-                }}
-              />
-            </div>
-            <NavLink
-              to="/"
-              onClick={() =>
-                //עדכון השרת
-
-                console.log('בדיקה עם קיים במערכת')
-              }
-              style={{
-                color: 'white',
-                alignSelf: 'center',
-                background: 'lightBlue',
-                textAlign: 'center',
-                border: ' 2px solid black',
-                borderRadius: ' 12px',
-                width: '220px',
-                height: '35px',
-              }}
-            >
-              go
-            </NavLink>
-            <br />
-          </div>
-        </div>
-      </div>
-    </React.Fragment>
-  );
-};

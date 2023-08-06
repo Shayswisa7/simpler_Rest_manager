@@ -17,36 +17,56 @@ export const userConnection = createAsyncThunk(
     return user.data;
   }
 );
+export const postUserLogOut = createAsyncThunk(
+  'users/postUserLogOut',
+  async ({ id, workTimes }) => {
+    console.log(workTimes);
+    const user = await axios.post('http://localhost:3001/LogOutEmployee', {
+      type: 'Employee',
+      obj: {
+        id: id,
+        workTimes: workTimes,
+      },
+    });
+    console.log(user.data);
+    return user.data;
+  }
+);
 export const userSlice = createSlice({
   name: 'users',
   initialState: {
     obj: {
-      username: '',
+      name: '',
       id: '',
       phoneNumber: '',
+      rol: '',
       password: '',
-      hourlyWage: {
-        start: '',
-        end: '',
+      workTimes: {
+        start: {},
+        end: {},
       },
     },
     status: null,
   },
   reducers: {
     clearState: (state) => {
-      state.obj.username = '';
+      state.obj.name = '';
       state.obj.id = '';
+      state.obj.phoneNumber = '';
+      state.obj.rol = '';
       state.obj.password = '';
-      state.obj.hourlyWage.start = '';
-      state.obj.hourlyWage.end = '';
+      state.obj.workTimes.start = {};
+      state.obj.workTimes.end = {};
       state.status = null;
     },
-    logOut: (state, { payload }) => {
-      state.username = payload.firstName + ' ' + payload.lastName;
-      state.phoneNumOrID = payload.id;
-      state.password = payload.password;
-      state.hourlyWage.start = payload.state.hourlyWage.start;
-      state.hourlyWage.end = new Date();
+    logOut: (state) => {
+      const date = new Date();
+      state.obj.workTimes.end = {
+        date: date.getDate(),
+        month: date.getMonth() + 1,
+        year: date.getFullYear(),
+        time: date.getHours() + ':' + date.getMinutes(),
+      };
     },
   },
   extraReducers: {
@@ -55,15 +75,21 @@ export const userSlice = createSlice({
     },
     [userConnection.fulfilled]: (state, { payload }) => {
       if (payload) {
-        state.obj.username = payload.firstName + ' ' + payload.lastName;
+        state.obj.name = payload.firstName + ' ' + payload.lastName;
         state.obj.id = payload.id;
         state.obj.phoneNumber = payload.phoneNumber;
+        state.obj.rol = payload.rol;
         state.obj.password = payload.password;
         const date = new Date();
-        state.obj.hourlyWage.start = `day:${date.getDay()} / time: ${date.getHours()}:${date.getMinutes()}`;
-        state.obj.hourlyWage.end = '';
-        state.status = 'success';
+        state.obj.workTimes.start = {
+          date: date.getDate(),
+          month: date.getMonth() + 1,
+          year: date.getFullYear(),
+          time: date.getHours() + ':' + date.getMinutes(),
+        };
       }
+      state.obj.workTimes.end = {};
+      state.status = 'success';
     },
     [userConnection.rejected]: (state, { payload }) => {
       state.status = 'failed';

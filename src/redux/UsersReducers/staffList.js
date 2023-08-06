@@ -6,14 +6,18 @@ export const staffListSlice = createSlice({
     obj: [],
   },
   reducers: {
+    listLocalS: (state, { payload }) => {
+      state.obj = payload.obj;
+    },
     add: (state, action) => {
       state.obj.push(action.payload);
     },
-    remove: (state, action) => {
-      state.obj.filter((x) => x.id !== action.payload.id);
+    remove: (state, { payload }) => {
+      console.log(payload);
+      state.obj = state.obj.filter((x) => x.id !== payload);
     },
   },
 });
 
-export const { add, remove } = staffListSlice.actions;
+export const { listLocalS, add, remove } = staffListSlice.actions;
 export default staffListSlice.reducer;

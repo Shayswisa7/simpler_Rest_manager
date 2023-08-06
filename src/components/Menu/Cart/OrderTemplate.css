@@ -1,0 +1,21 @@
+#rowOrder {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  transition: 3s;
+}
+#orderImage {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+#orderDitails {
+  display: flex;
+  justify-content: start;
+  width: 350px;
+}
+#orderDitails-edit {
+  display: flex;
+  justify-content: end;
+  margin-right: auto;
+}
